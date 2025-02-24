@@ -1,71 +1,159 @@
-# Getting Started with Create React App
+# Task Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple task management application built with Spring Boot (backend) and React (frontend). This application allows users to add, update, delete, and track the status of tasks (e.g., "not done", "in progress", "done").
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Backend (Spring Boot)
+- RESTful API for managing tasks.
+- MongoDB for storing tasks.
+- Endpoints for:
+  - Adding a task.
+  - Updating a task.
+  - Deleting a task.
+  - Marking a task as "done" or "in progress".
+  - Listing all tasks or tasks by status.
 
-### `npm start`
+### Frontend (React)
+- User-friendly interface for managing tasks.
+- Real-time updates when tasks are added, updated, or deleted.
+- Filter tasks by status (e.g., "not done", "in progress", "done").
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- **Spring Boot**: Java framework for building the REST API.
+- **MongoDB**: NoSQL database for storing tasks.
+- **Spring Data MongoDB**: For interacting with MongoDB.
 
-### `npm test`
+### Frontend
+- **React**: JavaScript library for building the user interface.
+- **Axios**: For making HTTP requests to the backend.
+- **CSS**: For styling the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Prerequisites
+Before running the project, ensure you have the following installed:
+- **Java Development Kit (JDK)**: Version 17 or higher.
+- **Node.js**: For running the React frontend.
+- **MongoDB**: Installed and running locally or remotely.
+- **IDE**: IntelliJ IDEA, Eclipse, or any text editor for backend development.
+- **Postman (optional)**: For testing the backend API.
 
-### `npm run build`
+## Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend (Spring Boot)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/task-tracker.git
+   cd task-tracker/backend
+   ```
+2. Configure MongoDB:
+   Update the `application.properties` file with your MongoDB connection details:
+   ```properties
+   spring.data.mongodb.uri=mongodb://localhost:27017/taskdb
+   ```
+3. Run the Spring Boot application:
+   Open the project in your IDE and run the `TaskTrackerApplication.java` file.
+   Alternatively, use the command line:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+4. Verify the backend:
+   Open `http://localhost:8080/tasks` in your browser or Postman.
+   You should see an empty array `[]` if no tasks exist.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend (React)
 
-### `npm run eject`
+1. Navigate to the frontend directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Configure the proxy:
+   Ensure the `proxy` field in `package.json` points to the backend URL:
+   ```json
+   "proxy": "http://localhost:8080"
+   ```
+4. Run the React app:
+   ```bash
+   npm start
+   ```
+5. Access the application:
+   Open `http://localhost:3000` in your browser.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## API Endpoints
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Tasks
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **GET** `/tasks`: Get all tasks.
+- **GET** `/tasks/status/{status}`: Get tasks by status (e.g., "done", "in progress").
+- **POST** `/tasks`: Add a new task.
+  ```json
+  {
+    "title": "Finish project",
+    "status": "not done"
+  }
+  ```
+- **PUT** `/tasks/{id}`: Update a task.
+  ```json
+  {
+    "title": "Updated task title",
+    "status": "done"
+  }
+  ```
+- **DELETE** `/tasks/{id}`: Delete a task.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+### Add a Task
+1. Enter the task title in the input field.
+2. Select the task status (e.g., "not done", "in progress", "done").
+3. Click **Add Task**.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Update a Task
+1. Click the **Edit** button next to the task you want to update.
+2. Modify the task title or status.
+3. Click **Update Task**.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Delete a Task
+1. Click the **Delete** button next to the task you want to delete.
 
-### Code Splitting 
-you can also find this project on: https://roadmap.sh/projects/task-tracker
+### Mark a Task as Done or In Progress
+1. Click the **Mark as Done** or **Mark as In Progress** button next to the task.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Troubleshooting
 
-### Analyzing the Bundle Size
+### Common Issues
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Backend not running:**
+  - Ensure the Spring Boot application is running on `http://localhost:8080`.
 
-### Making a Progressive Web App
+- **CORS errors:**
+  - Verify that the `@CrossOrigin` annotation is added to the `TaskController` in the backend.
+  - Ensure the `proxy` field in `package.json` is correctly configured.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **MongoDB connection issues:**
+  - Check if MongoDB is running and accessible.
+  - Verify the connection URI in `application.properties`.
 
-### Advanced Configuration
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Contributions are welcome! If you'd like to contribute, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes.
+4. Submit a pull request.
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## Acknowledgments
+- **Spring Boot**: For providing a robust backend framework.
+- **React**: For enabling a dynamic and responsive frontend.
+- **MongoDB**: For offering a flexible NoSQL database solution.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy using the Task Tracker! If you have any questions or feedback, feel free to open an issue or contact the maintainers.
+
