@@ -1,5 +1,7 @@
 # Task Tracker
 
+<img src="https://github.com/Radhesham7507/Task_Tracker/blob/master/task_tracker.png">
+
 A simple task management application built with Spring Boot (backend) and React (frontend). This application allows users to add, update, delete, and track the status of tasks (e.g., "not done", "in progress", "done").
 
 ## Features
